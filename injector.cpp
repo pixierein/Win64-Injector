@@ -16,13 +16,9 @@ DWORD GetPid(const std::wstring& name) {
     if (snap == INVALID_HANDLE_VALUE)
         return 0;
 
-
-
     PROCESSENTRY32W pe{};
 
     pe.dwSize = sizeof(pe);
-
-
 
     // start checking processes
     if (Process32FirstW(snap, &pe)) {
@@ -57,9 +53,6 @@ bool Inject(DWORD pid, const std::wstring& dll) {
     // open target process with admin
     HANDLE proc =
         OpenProcess(PROCESS_ALL_ACCESS, FALSE, pid);
-
-
-
     if (!proc) {
 
         std::wcerr
@@ -75,8 +68,6 @@ bool Inject(DWORD pid, const std::wstring& dll) {
     // allocate memory inside target process
     size_t sz =
         (dll.size() + 1) * sizeof(wchar_t);
-
-
 
     LPVOID mem =
         VirtualAllocEx(
